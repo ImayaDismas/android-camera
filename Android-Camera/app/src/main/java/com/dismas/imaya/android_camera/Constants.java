@@ -1,7 +1,8 @@
 package com.dismas.imaya.android_camera;
 
+
 /**
- * Created by imaya on 3/21/16.
+ * Created by irving on 8/28/15.
  */
 public class Constants {
     public static final String SHTAKI_PREFERENCES = "sprefs";

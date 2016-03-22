@@ -61,7 +61,6 @@ public class Take_Picture extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.take_picture);
-        setToolBar();
         SHTAKIprefferences = getSharedPreferences(Constants.SHTAKI_PREFERENCES,
                 Context.MODE_PRIVATE);
         Firebase.setAndroidContext(getApplicationContext());
@@ -102,7 +101,7 @@ public class Take_Picture extends ActionBarActivity {
                         "The image saved successfully", Toast.LENGTH_SHORT).show();
 
 
-                Intent i = new Intent(getApplicationContext(), Take_Picture.class);
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
                 finish();
 
@@ -112,97 +111,97 @@ public class Take_Picture extends ActionBarActivity {
 
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case TAKE_AVATAR_CAMERA_REQUEST:
-                if (resultCode == Activity.RESULT_CANCELED) {
-                    // Avatar camera mode was canceled.
-                } else if (resultCode == Activity.RESULT_OK) {
-                    // TODO: HANDLE PHOTO TAKEN
-                    Bitmap cameraPic = (Bitmap) data.getExtras().get("data");
-                    saveAvatar(cameraPic);
-                }
-                break;
-            case TAKE_AVATAR_GALLERY_REQUEST:
-                if (resultCode == Activity.RESULT_CANCELED) {
-                    // Avatar gallery request mode was canceled.
-                } else if (resultCode == Activity.RESULT_OK) {
-                    // TODO: HANDLE IMAGE CHOSEN
-                    Uri photoUri = data.getData();
-                    try {
-                        Bitmap galleryPic = MediaStore.Images.Media.getBitmap(getContentResolver(), photoUri);
-
-                        saveAvatar(galleryPic);
-                    } catch (FileNotFoundException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-                break;
-        }
-    }
-
-    private void saveAvatar(Bitmap avatar) {
-// TODO: Save the Bitmap as a local file called avatar.jpg
-        String strAvatarFilename = "avatar.jpg";
-        try {
-            avatar.compress(Bitmap.CompressFormat.JPEG,
-                    100, openFileOutput(strAvatarFilename, MODE_PRIVATE));
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-// TODO: Determine the Uri to the local avatar.jpg file
-
-// TODO: Save the Uri path as a String preference
-        Uri imageUri = Uri.fromFile(new File(getFilesDir(), strAvatarFilename));
-// TODO: Update the ImageButton with the new image
-        photo.setImageBitmap(null);
-        photo.setImageDrawable(null);
-        photo.setImageBitmap(avatar);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        avatar.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        String image = Base64.encodeToString(byteArray, Base64.DEFAULT);
-        SharedPreferences.Editor editorwa = SHTAKIprefferences.edit();
-        editorwa.putString(Constants.CURRENT_IMAGE, image);
-        editorwa.commit();
-
-
-    }
-
-    private void setToolBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarSingleStack);
-        if (toolbar != null) {
-
-            setSupportActionBar(toolbar);
-            setUpActionbar();
-            toolbar.setBackgroundColor(getResources().getColor(R.color.green));
-            toolbar.setTitleTextColor(getResources().getColor(R.color.white_pure));
-
-
-        }
-
-    }
-
-    private void setUpActionbar() {
-        if (getSupportActionBar() != null) {
-            ActionBar bar = getSupportActionBar();
-            bar.setTitle(getResources().getString(R.string.app_name));
-            bar.setHomeButtonEnabled(false);
-            bar.setDisplayShowHomeEnabled(false);
-            bar.setDisplayHomeAsUpEnabled(false);
-            bar.setDisplayShowTitleEnabled(true);
-
-
-            bar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-
-        }
-
-
-    }
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        switch (requestCode) {
+//            case TAKE_AVATAR_CAMERA_REQUEST:
+//                if (resultCode == Activity.RESULT_CANCELED) {
+//                    // Avatar camera mode was canceled.
+//                } else if (resultCode == Activity.RESULT_OK) {
+//                    // TODO: HANDLE PHOTO TAKEN
+//                    Bitmap cameraPic = (Bitmap) data.getExtras().get("data");
+//                    saveAvatar(cameraPic);
+//                }
+//                break;
+//            case TAKE_AVATAR_GALLERY_REQUEST:
+//                if (resultCode == Activity.RESULT_CANCELED) {
+//                    // Avatar gallery request mode was canceled.
+//                } else if (resultCode == Activity.RESULT_OK) {
+//                    // TODO: HANDLE IMAGE CHOSEN
+//                    Uri photoUri = data.getData();
+//                    try {
+//                        Bitmap galleryPic = MediaStore.Images.Media.getBitmap(getContentResolver(), photoUri);
+//
+//                        saveAvatar(galleryPic);
+//                    } catch (FileNotFoundException e) {
+//                        // TODO Auto-generated catch block
+//                        e.printStackTrace();
+//                    } catch (IOException e) {
+//                        // TODO Auto-generated catch block
+//                        e.printStackTrace();
+//                    }
+//                }
+//                break;
+//        }
+//    }
+//
+//    private void saveAvatar(Bitmap avatar) {
+//// TODO: Save the Bitmap as a local file called avatar.jpg
+//        String strAvatarFilename = "avatar.jpg";
+//        try {
+//            avatar.compress(Bitmap.CompressFormat.JPEG,
+//                    100, openFileOutput(strAvatarFilename, MODE_PRIVATE));
+//        } catch (FileNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//
+//// TODO: Determine the Uri to the local avatar.jpg file
+//
+//// TODO: Save the Uri path as a String preference
+//        Uri imageUri = Uri.fromFile(new File(getFilesDir(), strAvatarFilename));
+//// TODO: Update the ImageButton with the new image
+//        photo.setImageBitmap(null);
+//        photo.setImageDrawable(null);
+//        photo.setImageBitmap(avatar);
+//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//        avatar.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+//        byte[] byteArray = byteArrayOutputStream.toByteArray();
+//        String image = Base64.encodeToString(byteArray, Base64.DEFAULT);
+//        SharedPreferences.Editor editorwa = SHTAKIprefferences.edit();
+//        editorwa.putString(Constants.CURRENT_IMAGE, image);
+//        editorwa.commit();
+//
+//
+//    }
+//
+//    private void setToolBar() {
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarSingleStack);
+//        if (toolbar != null) {
+//
+//            setSupportActionBar(toolbar);
+//            setUpActionbar();
+//            toolbar.setBackgroundColor(getResources().getColor(R.color.green));
+//            toolbar.setTitleTextColor(getResources().getColor(R.color.white_pure));
+//
+//
+//        }
+//
+//    }
+//
+//    private void setUpActionbar() {
+//        if (getSupportActionBar() != null) {
+//            ActionBar bar = getSupportActionBar();
+//            bar.setTitle(getResources().getString(R.string.app_name));
+//            bar.setHomeButtonEnabled(false);
+//            bar.setDisplayShowHomeEnabled(false);
+//            bar.setDisplayHomeAsUpEnabled(false);
+//            bar.setDisplayShowTitleEnabled(true);
+//
+//
+//            bar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+//
+//        }
+//
+//
+//    }
 }
